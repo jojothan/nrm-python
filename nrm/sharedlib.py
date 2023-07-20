@@ -27,6 +27,7 @@ class HSO(CDLL):
         fun.restype = POINTER(c_char)
 
         def wrapped_fun(*args):
+            global counter
             print(f'{counter} | ', args); counter += 1
             packed = msgpack.packb(args)
             print(packed)
