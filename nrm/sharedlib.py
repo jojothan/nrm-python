@@ -14,6 +14,7 @@ from ctypes import CDLL, POINTER, LibraryLoader, c_char
 import msgpack
 import logging
 
+counter = 0
 
 class HSO(CDLL):
 
@@ -26,7 +27,7 @@ class HSO(CDLL):
         fun.restype = POINTER(c_char)
 
         def wrapped_fun(*args):
-            print(args)
+            print(f'{counter} | ', args); counter += 1
             packed = msgpack.packb(args)
             print(packed)
             #print(msgpack.unpackb(packed, strict_map_key=False))
