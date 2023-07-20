@@ -30,7 +30,7 @@ class HSO(CDLL):
             global counter
             packed = msgpack.packb(args)
             length_64bits = struct.pack(">q", len(packed))
-            print(f" {counter} | fun {fun} | lenght_64bits {lenght_64bits.hex()} | packed {packed.hex()}"); counter += 1
+            print(f" {counter} | fun {fun} | length_64bits {length_64bits.hex()} | packed {packed.hex()}"); counter += 1
             ptr = fun(length_64bits + packed)
             print(f"ptr | {ptr.hex()}")
             data_length = struct.unpack(">q", ptr[:8])[0]
