@@ -26,7 +26,9 @@ class HSO(CDLL):
         fun.restype = POINTER(c_char)
 
         def wrapped_fun(*args):
+            print(args)
             packed = msgpack.packb(args)
+            print(msgpack.unpackb(packed, strict_map_key=False))
             length_64bits = struct.pack(">q", len(packed))
             ptr = fun(length_64bits + packed)
             data_length = struct.unpack(">q", ptr[:8])[0]
