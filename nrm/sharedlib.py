@@ -28,12 +28,11 @@ class HSO(CDLL):
 
         def wrapped_fun(*args):
             global counter
-            print(f'{counter} | ', args); counter += 1
             packed = msgpack.packb(args)
-            print(packed)
-            #print(msgpack.unpackb(packed, strict_map_key=False))
             length_64bits = struct.pack(">q", len(packed))
+            print(f" {counter} | fun {fun} | lenght_64bits {lenght_64bits.hex()} | packed {packed.hex()}"); counter += 1
             ptr = fun(length_64bits + packed)
+            print(f"ptr | {ptr.hex()}")
             data_length = struct.unpack(">q", ptr[:8])[0]
             res = msgpack.unpackb(ptr[8 : 8 + data_length], raw=False, use_list=False, strict_map_key=False)
             self.free(ptr)
