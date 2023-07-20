@@ -29,6 +29,7 @@ class HSO(CDLL):
             print(args)
             packed = msgpack.packb(args)
             print(packed)
+            print(msgpack.unpackb(packed, use_list=False))
             length_64bits = struct.pack(">q", len(packed))
             ptr = fun(length_64bits + packed)
             data_length = struct.unpack(">q", ptr[:8])[0]
